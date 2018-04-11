@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of Swoft.
+ *
+ * @link https://swoft.org
+ * @document https://doc.swoft.org
+ * @contact group@swoft.org
+ * @license https://github.com/swoft-cloud/swoft/blob/master/LICENSE
+ */
 
 namespace App\Controllers;
 
@@ -9,52 +17,49 @@ use Swoft\Http\Server\Bean\Annotation\RequestMapping;
 use App\Middlewares\GroupTestMiddleware;
 use App\Middlewares\ActionTestMiddleware;
 use App\Middlewares\SubMiddleware;
-use App\Middlewares\ControlerSubMiddleware;
-use App\Middlewares\ControlerTestMiddleware;
+use App\Middlewares\ControllerSubMiddleware;
+use App\Middlewares\ControllerTestMiddleware;
 
 
 /**
- * @Controller("md")
- *
- * @Middleware(class=ControlerTestMiddleware::class)
+ * @Controller("middleware")
+ * @Middleware(class=ControllerTestMiddleware::class)
  * @Middlewares({
- *     @Middleware(ControlerSubMiddleware::class)
+ *     @Middleware(ControllerSubMiddleware::class)
  * })
  */
 class MiddlewareController
 {
     /**
-     * @RequestMapping(route="caa")
-     *
+     * @RequestMapping()
      * @Middlewares({
      *     @Middleware(GroupTestMiddleware::class),
      *     @Middleware(ActionTestMiddleware::class)
      * })
      * @Middleware(SubMiddleware::class)
      */
-    public function controllerAndAction()
+    public function action1(): array
     {
         return ['middleware'];
     }
 
     /**
-     * @RequestMapping(route="caa2")
-     *
+     * @RequestMapping()
      * @Middleware(SubMiddleware::class)
      * @Middlewares({
      *     @Middleware(GroupTestMiddleware::class),
      *     @Middleware(ActionTestMiddleware::class)
      * })
      */
-    public function controllerAndAction2()
+    public function action2(): array
     {
         return ['middleware2'];
     }
 
     /**
-     * @RequestMapping("cm")
+     * @RequestMapping()
      */
-    public function controlerMiddleware()
+    public function action3(): array
     {
         return ['middleware3'];
     }

@@ -1,19 +1,31 @@
 <?php
+
+/*
+ * This file is part of Swoft.
+ * (c) Swoft <group@swoft.org>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 return [
-    'redis' => [
+    'redis'     => [
         'name'        => 'redis',
         'uri'         => [
             '127.0.0.1:6379',
             '127.0.0.1:6379',
         ],
-        'maxIdel'     => 8,
+        'minActive'   => 8,
         'maxActive'   => 8,
         'maxWait'     => 8,
+        'maxWaitTime' => 3,
+        'maxIdleTime' => 60,
         'timeout'     => 8,
-        'balancer'    => 'random',
-        'useProvider' => false,
-        'provider'    => 'consul',
         'db'          => 1,
+        'prefix'      => 'redis_',
         'serialize'   => 0,
+    ],
+    'demoRedis' => [
+        'db'     => 2,
+        'prefix' => 'demo_redis_',
     ],
 ];

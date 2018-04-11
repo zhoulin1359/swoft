@@ -1,9 +1,20 @@
 <?php
+/**
+ * This file is part of Swoft.
+ *
+ * @link https://swoft.org
+ * @document https://doc.swoft.org
+ * @contact group@swoft.org
+ * @license https://github.com/swoft-cloud/swoft/blob/master/LICENSE
+ */
 
 namespace App\Controllers;
 
+use Swoft\App;
+use Swoft\Core\Coroutine;
 use Swoft\Http\Server\Bean\Annotation\Controller;
 use Swoft\Http\Server\Bean\Annotation\RequestMapping;
+use Swoft\Log\Log;
 use Swoft\View\Bean\Annotation\View;
 use Swoft\Contract\Arrayable;
 use Swoft\Http\Server\Exception\BadRequestException;
@@ -182,13 +193,22 @@ class IndexController
         return $name;
     }
 
+    public function testLog()
+    {
+        App::trace('this is app trace');
+        Log::trace('this is log trace');
+        App::error('this is log error');
+        Log::trace('this is log error');
+        return ['log'];
+    }
+
     /**
      * @RequestMapping()
      * @throws \Swoft\Http\Server\Exception\BadRequestException
      */
     public function exception()
     {
-        throw new BadRequestException("bad request exception");
+        throw new BadRequestException('bad request exception');
     }
 
     /**
@@ -200,5 +220,4 @@ class IndexController
     {
         return $response->redirect('/');
     }
-
 }

@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of Swoft.
+ *
+ * @link https://swoft.org
+ * @document https://doc.swoft.org
+ * @contact group@swoft.org
+ * @license https://github.com/swoft-cloud/swoft/blob/master/LICENSE
+ */
 
 namespace Swoft\Test\Cases;
 
@@ -54,7 +62,7 @@ class IndexControllerTest extends AbstractTestCase
             $this->assertInstanceOf(Response::class, $response);
             /** @var Response $response */
             $response->assertSuccessful()
-                ->assertHeader('Content-Type', 'application/json')
+                ->assertHeaderContain('Content-Type', 'application/json')
                 ->assertSee('Swoft')
                 ->assertSeeText('New Generation of PHP Framework')
                 ->assertDontSee('Swoole')
@@ -67,12 +75,12 @@ class IndexControllerTest extends AbstractTestCase
         };
         // Json model
         $response = $this->request('GET', '/', [], parent::ACCEPT_JSON);
-        $response->assertHeader('Content-Type', parent::ACCEPT_JSON);
+        $response->assertHeaderContain('Content-Type', parent::ACCEPT_JSON);
         $jsonAssert($response);
 
         // Raw model
         $response = $this->request('GET', '/', [], parent::ACCEPT_RAW);
-        $response->assertHeader('Content-Type', parent::ACCEPT_JSON);
+        $response->assertHeaderContain('Content-Type', parent::ACCEPT_JSON);
         $jsonAssert($response);
 
         // View model
@@ -81,7 +89,7 @@ class IndexControllerTest extends AbstractTestCase
             ->assertSee($expectedResult['name'])
             ->assertSee($expectedResult['notes'][0])
             ->assertSee($expectedResult['notes'][1])
-            ->assertHeader('Content-Type', 'text/html');
+            ->assertHeaderContain('Content-Type', 'text/html');
 
         // absolutePath
         $response = $this->request('GET', '/index/absolutePath', [], parent::ACCEPT_VIEW);

@@ -1,22 +1,23 @@
 <?php
+/**
+ * This file is part of Swoft.
+ *
+ * @link https://swoft.org
+ * @document https://doc.swoft.org
+ * @contact group@swoft.org
+ * @license https://github.com/swoft-cloud/swoft/blob/master/LICENSE
+ */
 
 namespace App\Pool\Config;
 
 use Swoft\Bean\Annotation\Bean;
 use Swoft\Bean\Annotation\Value;
-use Swoft\Sg\BalancerSelector;
 use Swoft\Pool\PoolProperties;
-use Swoft\Sg\ProviderSelector;
 
 /**
  * the config of service user
  *
  * @Bean()
- * @uses      UserPoolConfig
- * @version   2017年12月16日
- * @author    stelin <phpcrazy@126.com>
- * @copyright Copyright 2010-2016 swoft software
- * @license   PHP Version 7.x {@link http://www.php.net/license/3_0.txt}
  */
 class UserPoolConfig extends PoolProperties
 {
@@ -26,15 +27,15 @@ class UserPoolConfig extends PoolProperties
      * @Value(name="${config.service.user.name}", env="${USER_POOL_NAME}")
      * @var string
      */
-    protected $name = "";
+    protected $name = '';
 
     /**
-     * the maximum number of idle connections
+     * Minimum active number of connections
      *
-     * @Value(name="${config.service.user.maxIdel}", env="${USER_POOL_MAX_IDEL}")
+     * @Value(name="${config.service.user.minActive}", env="${USER_POOL_MIN_ACTIVE}")
      * @var int
      */
-    protected $maxIdel = 6;
+    protected $minActive = 5;
 
     /**
      * the maximum number of active connections
@@ -51,6 +52,22 @@ class UserPoolConfig extends PoolProperties
      * @var int
      */
     protected $maxWait = 100;
+
+    /**
+     * Maximum waiting time
+     *
+     * @Value(name="${config.service.user.maxWaitTime}", env="${USER_POOL_MAX_WAIT_TIME}")
+     * @var int
+     */
+    protected $maxWaitTime = 3;
+
+    /**
+     * Maximum idle time
+     *
+     * @Value(name="${config.service.user.maxIdleTime}", env="${USER_POOL_MAX_IDLE_TIME}")
+     * @var int
+     */
+    protected $maxIdleTime = 60;
 
     /**
      * the time of connect timeout
@@ -89,7 +106,7 @@ class UserPoolConfig extends PoolProperties
      * @Value(name="${config.service.user.balancer}", env="${USER_POOL_BALANCER}")
      * @var string
      */
-    protected $balancer = BalancerSelector::TYPE_RANDOM;
+    protected $balancer = '';
 
     /**
      * the default provider is consul provider
@@ -97,5 +114,5 @@ class UserPoolConfig extends PoolProperties
      * @Value(name="${config.service.user.provider}", env="${USER_POOL_PROVIDER}")
      * @var string
      */
-    protected $provider = ProviderSelector::TYPE_CONSUL;
+    protected $provider = '';
 }

@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of Swoft.
+ *
+ * @link https://swoft.org
+ * @document https://doc.swoft.org
+ * @contact group@swoft.org
+ * @license https://github.com/swoft-cloud/swoft/blob/master/LICENSE
+ */
 
 namespace App\Tasks;
 
@@ -6,7 +14,8 @@ use App\Lib\DemoInterface;
 use App\Models\Entity\User;
 use Swoft\App;
 use Swoft\Bean\Annotation\Inject;
-use Swoft\Http\Client;
+use Swoft\HttpClient\Client;
+use Swoft\Redis\Redis;
 use Swoft\Rpc\Client\Bean\Annotation\Reference;
 use Swoft\Task\Bean\Annotation\Scheduled;
 use Swoft\Task\Bean\Annotation\Task;
@@ -41,11 +50,11 @@ class SyncTask
      */
     public function deliverCo(string $p1, string $p2)
     {
-        App::profileStart("co");
+        App::profileStart('co');
         App::trace('trace');
         App::info('info');
         App::pushlog('key', 'stelin');
-        App::profileEnd("co");
+        App::profileEnd('co');
 
         return sprintf('deliverCo-%s-%s', $p1, $p2);
     }
@@ -60,11 +69,11 @@ class SyncTask
      */
     public function deliverAsync(string $p1, string $p2)
     {
-        App::profileStart("co");
+        App::profileStart('co');
         App::trace('trace');
         App::info('info');
         App::pushlog('key', 'stelin');
-        App::profileEnd("co");
+        App::profileEnd('co');
 
         return sprintf('deliverCo-%s-%s', $p1, $p2);
     }
@@ -76,9 +85,12 @@ class SyncTask
      */
     public function cache()
     {
-        cache()->set('cacheKey', 'cache');
-
-        return cache('cacheKey');
+        /* @var Redis $cache */
+        $cache = \Swoft\App::getBean(Redis::class);
+//        $ret1 = $cache->deferCall('set', ['name1', 'swoft1'])->getResult();
+        $ret1 = $cache->deferCall('set', ['name1', 'swoft1']);
+//        return cache('cacheKey');
+        return 111;
     }
 
     /**
@@ -87,9 +99,9 @@ class SyncTask
      * @return array
      */
     public function mysql(){
-        $result = User::findById(425)->getResult();
+        $result = User::findById(4212)->getResult();
 
-        $query = User::findById(426);
+        $query = User::findById(4212);
 
         /* @var User $user */
         $user = $query->getResult(User::class);
@@ -103,16 +115,19 @@ class SyncTask
      */
     public function http()
     {
-        $client = new Client([
-                'base_uri' => 'http://127.0.0.1/index/post?a=b',
-                'timeout'  => 2,
-            ]);
+        $client = new Client();
+        $response = $client->get('http://www.swoft.org')->getResponse()->getBody()->getContents();
+        $response2 = $client->get('http://127.0.0.1/redis/testCache')->getResponse()->getBody()->getContents();
 
-        $result = $client->post('http://127.0.0.1/index/post?a=b')->getResponse();
-        $result2 = $client->get('http://www.baidu.com/');
-        $data['result'] = $result;
-        $data['result2'] = $result2;
+        $data['result1'] = $response;
+        $data['result2'] = $response2;
         return $data;
+    }
+
+    public function console(string $data)
+    {
+        var_dump('console', $data);
+        return ['console'];
     }
 
     /**
@@ -122,7 +137,13 @@ class SyncTask
      */
     public function rpc()
     {
-        return $this->demoService->getUser('6666');
+        $user = $this->demoService->getUser('6666');
+        $defer1 = $this->demoService->deferGetUser('666');
+        $defer2 = $this->demoService->deferGetUser('888');
+
+        $result1 = $defer1->getResult();
+        $result2 = $defer2->getResult();
+        return [$user, $result1, $result2];
     }
 
     /**

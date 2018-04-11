@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of Swoft.
+ *
+ * @link https://swoft.org
+ * @document https://doc.swoft.org
+ * @contact group@swoft.org
+ * @license https://github.com/swoft-cloud/swoft/blob/master/LICENSE
+ */
 
 namespace App\Controllers;
 
@@ -22,6 +30,23 @@ class RouteController
         return 'index';
     }
 
+    /**
+     * access /routes you can see all registered routes.
+     * @RequestMapping("/routes")
+     */
+    public function routes(): array
+    {
+        /** @var \Swoft\Http\Server\Router\HandlerMapping $router */
+        $router = \bean('httpRouter');
+
+        return [
+            'static' => $router->getStaticRoutes(),
+            'regular' => $router->getRegularRoutes(),
+            'vague' => $router->getVagueRoutes(),
+            'cached' => $router->getCacheRoutes(),
+        ];
+    }
+    
     /**
      * @RequestMapping(route="user/{uid}/book/{bid}/{bool}/{name}")
      *
