@@ -23,6 +23,16 @@ class UserController extends BaseController
      * @RequestMapping(route="act")
      */
     public function user(){
-        return ['user'=>233];
+        //(session()->put(['as'=>time()]));
+        //session()->save();
+        //($this->redis);
+       // ($this->redis->set(12,34,2233));
+        //var_dump($this->redis->get(12));
+       // ($this->redis->getLastError());
+      //  var_dump($this->redis->get(1));
+       // var_dump($this->redis->get(13));
+        var_dump($this->redis->set(time(),time(),999));
+        //var_dump($this->redis->getLastError());
+        return ['user'=>233,$this->redis->getLastError()];
     }
 }

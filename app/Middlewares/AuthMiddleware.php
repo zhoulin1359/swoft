@@ -33,8 +33,7 @@ class AuthMiddleware implements MiddlewareInterface
         }
         //var_dump();
         var_dump($request->getUri()->getPath());
-        var_dump(Test::test());
-        var_dump(User::findById(1,['fields'=>['id']])->getResult());
+        (User::findById(1,['fields'=>['id']])->getResult());
         //var_dump(User::query())
         //\Swoft::trigger('finish', null, 1, 2222,232); 事件
         $response = $handler->handle($request);
