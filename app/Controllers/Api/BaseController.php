@@ -27,7 +27,8 @@ class BaseController
 
     public function __construct()
     {
-
+        //var_dump(123);
+        //var_dump(posix_getpid());
     }
 
     /**
