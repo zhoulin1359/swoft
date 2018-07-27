@@ -12,8 +12,8 @@ return [
         'config' => [
             'driver' => 'redis',
             'name' => 'JEEMU_SESSION_ID',
-            'lifetime' => 1800,
-            'expire_on_close' => false,
+            'lifetime' => 3600,
+            'expire_on_close' => true,
             'encrypt' => false,
             'storage' => '@runtime/sessions',
         ],

@@ -18,6 +18,12 @@ use Swoft\Bean\Annotation\Bean;
  */
 class Test
 {
+
+    public function __construct()
+    {
+        var_dump(123);
+    }
+
     public static function test()
     {
         return User::findById(1)->getResult();
