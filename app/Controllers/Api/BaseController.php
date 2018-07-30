@@ -7,6 +7,7 @@
  */
 
 namespace App\Controllers\Api;
+use App\Models\Entity\User;
 use Swoft\Bean\Annotation\Inject;
 use Swoft\Bean\Annotation\Number;
 use Swoft\Http\Server\Bean\Annotation\Controller;
@@ -42,7 +43,7 @@ class BaseController
      * @RequestMapping(route="test")
      */
     public function test(){
-        return ['date'=>date('Ymd')];
+        return [User::findById(1)->getResult()];
     }
 
     /**

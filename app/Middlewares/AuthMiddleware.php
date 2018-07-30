@@ -42,30 +42,20 @@ class AuthMiddleware implements MiddlewareInterface
         if (false) {
             return response()->json(['rand' => rand()]);
         }
-       // \Swoft::trigger('runtime', null, microtime(true));
-        //var_dump();
-       // var_dump($request->getCookieParams());
-<<<<<<< HEAD
         var_dump($request->getUri()->getPath());
         $this->redis->set(uniqid(),time());
-=======
         //var_dump($request->getUri()->getPath());
         //$this->redis->set(uniqid(),time());
->>>>>>> cd87c0087107fd10d4f63601a30201a36b87c727
         //var_export(session()->put('s','sdsd'));
        // var_dump(base64_encode((new Security())->encryptByPassword(111222, '66ifule')));
         //(User::findById(1,['fields'=>['id']])->getResult());
         //var_dump(User::query())
         //\Swoft::trigger('finish', null, 1, 2222,232); 事件
         //\Swoft::trigger('runtime', null, microtime(true));
-<<<<<<< HEAD
-        var_dump(Test::test());
-=======
         //var_dump(Test::test());
         session()->put(['uid'=>rand(1,10)]);
         $session = App::getBean(SessionDao::class);
         $session->setUid(session()->get('uid',0));
->>>>>>> cd87c0087107fd10d4f63601a30201a36b87c727
         $response = $handler->handle($request);
         return $response;
     }
