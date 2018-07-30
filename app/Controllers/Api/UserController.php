@@ -9,6 +9,7 @@
 namespace App\Controllers\Api;
 
 
+use App\Models\Entity\User;
 use Swoft\Http\Server\Bean\Annotation\Controller;
 use Swoft\Http\Server\Bean\Annotation\RequestMapping;
 
@@ -31,8 +32,9 @@ class UserController extends BaseController
        // ($this->redis->getLastError());
       //  var_dump($this->redis->get(1));
        // var_dump($this->redis->get(13));
-        var_dump($this->redis->set(time(),time(),999));
+       // var_dump($this->redis->set(time(),time(),999));
         //var_dump($this->redis->getLastError());
-        return ['user'=>233,$this->redis->getLastError()];
+        //var_dump(\Swoft::getPool('default.master'));
+        return ['user'=>233, User::findById(1)->getResult()];
     }
 }

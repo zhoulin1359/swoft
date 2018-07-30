@@ -40,16 +40,18 @@ class AuthMiddleware implements MiddlewareInterface
         if (false) {
             return response()->json(['rand' => rand()]);
         }
-        \Swoft::trigger('runtime', null, microtime(true));
+       // \Swoft::trigger('runtime', null, microtime(true));
         //var_dump();
+       // var_dump($request->getCookieParams());
         var_dump($request->getUri()->getPath());
-        //$this->redis->set(time(),time());
+        $this->redis->set(uniqid(),time());
         //var_export(session()->put('s','sdsd'));
-        var_dump(base64_encode((new Security())->encryptByPassword(111222, '66ifule')));
+       // var_dump(base64_encode((new Security())->encryptByPassword(111222, '66ifule')));
         //(User::findById(1,['fields'=>['id']])->getResult());
         //var_dump(User::query())
         //\Swoft::trigger('finish', null, 1, 2222,232); 事件
-        \Swoft::trigger('runtime', null, microtime(true));
+        //\Swoft::trigger('runtime', null, microtime(true));
+        var_dump(Test::test());
         $response = $handler->handle($request);
         return $response;
     }
