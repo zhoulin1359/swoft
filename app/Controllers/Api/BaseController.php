@@ -8,6 +8,7 @@
 
 namespace App\Controllers\Api;
 use Swoft\Bean\Annotation\Inject;
+use Swoft\Bean\Annotation\Number;
 use Swoft\Http\Server\Bean\Annotation\Controller;
 use Swoft\Http\Server\Bean\Annotation\RequestMapping;
 
@@ -25,6 +26,12 @@ class BaseController
      */
     protected $redis;
 
+    /**
+     * @Inject()
+     * @var \App\Models\Dao\SessionDao
+     */
+    protected $sessionDao;
+
     public function __construct()
     {
         //var_dump(123);
@@ -36,5 +43,14 @@ class BaseController
      */
     public function test(){
         return ['date'=>date('Ymd')];
+    }
+
+    /**
+     * @RequestMapping(route="param")
+     * @Number(name="id", template="1234")
+     */
+    public function param(){
+        $id = request()->json('id');
+        return [request()->json('ds',23),$id];
     }
 }
