@@ -42,9 +42,8 @@ class AuthMiddleware implements MiddlewareInterface
         if (1) {
             return response()->json(['rand' => rand()]);
         }
-       // \Swoft::trigger('runtime', null, microtime(true));
-        //var_dump();
-       // var_dump($request->getCookieParams());
+        var_dump($request->getUri()->getPath());
+        $this->redis->set(uniqid(),time());
         //var_dump($request->getUri()->getPath());
         //$this->redis->set(uniqid(),time());
         //var_export(session()->put('s','sdsd'));

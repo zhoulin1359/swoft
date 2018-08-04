@@ -52,7 +52,11 @@ $db->connect($server, function ($db, $r) {
 $db = new swoole\mysql();
 
 $server = array(
+<<<<<<< HEAD
+    'host' => '172.17.0.3',
+=======
     'host' => '172.17.0.4',
+>>>>>>> cd87c0087107fd10d4f63601a30201a36b87c727
     'port' => 3306,
     'user' => 'root',
     'password' => '123456',

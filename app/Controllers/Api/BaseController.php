@@ -7,6 +7,7 @@
  */
 
 namespace App\Controllers\Api;
+use App\Models\Entity\User;
 use Swoft\Bean\Annotation\Inject;
 use Swoft\Bean\Annotation\Number;
 use Swoft\Http\Server\Bean\Annotation\Controller;
@@ -35,14 +36,14 @@ class BaseController
     public function __construct()
     {
         //var_dump(123);
-        //var_dump(posix_getpid());
+        var_dump(posix_getpid());
     }
 
     /**
      * @RequestMapping(route="test")
      */
     public function test(){
-        return ['date'=>date('Ymd')];
+        return [User::findById(1)->getResult()];
     }
 
     /**
