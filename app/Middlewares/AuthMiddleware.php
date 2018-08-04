@@ -39,7 +39,7 @@ class AuthMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if (false) {
+        if (1) {
             return response()->json(['rand' => rand()]);
         }
        // \Swoft::trigger('runtime', null, microtime(true));

@@ -10,26 +10,27 @@
 return [
     'serverDispatcher' => [
         'middlewares' => [
+            \App\Middlewares\XhguiMiddleware::class,
             //\Swoft\View\Middleware\ViewMiddleware::class,
             // \Swoft\Devtool\Middleware\DevToolMiddleware::class,
             \Swoft\Session\Middleware\SessionMiddleware::class,
             \App\Middlewares\AuthMiddleware::class
         ]
     ],
-    'httpRouter'       => [
-        'ignoreLastSlash'  => false,
+    'httpRouter' => [
+        'ignoreLastSlash' => false,
         'tmpCacheNumber' => 1000,
-        'matchAll'       => '',
+        'matchAll' => '',
     ],
-    'requestParser'    => [
+    'requestParser' => [
         'parsers' => [
 
         ],
     ],
-    'view'             => [
+    'view' => [
         'viewsPath' => '@resources/views/',
     ],
-    'cache'            => [
+    'cache' => [
         'driver' => 'redis',
     ],
     'demoRedis' => [
