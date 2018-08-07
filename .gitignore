@@ -11,3 +11,4 @@ temp/
 .phpintel/
 .DS_Store
 public/devtool/
+public/upload_file/

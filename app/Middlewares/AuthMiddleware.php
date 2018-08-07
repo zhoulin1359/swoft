@@ -42,8 +42,9 @@ class AuthMiddleware implements MiddlewareInterface
         if (false) {
             return response()->json(['rand' => rand()]);
         }
-        var_dump($request->getUri()->getPath());
-        $this->redis->set(uniqid(),time());
+        ($path = $request->getUri()->getPath());
+        ( $method = $request->getMethod());
+        $httpRouter = App::getBean('httpRouter');
         //var_dump($request->getUri()->getPath());
         //$this->redis->set(uniqid(),time());
         //var_export(session()->put('s','sdsd'));
