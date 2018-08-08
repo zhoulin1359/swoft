@@ -15,7 +15,7 @@ return [
     'bootScan'     => [
         'App\Commands',
         'App\Boot',
-        'App\Tasks',
+        //'App\Tasks',
     ],
     'excludeScan'  => [
 

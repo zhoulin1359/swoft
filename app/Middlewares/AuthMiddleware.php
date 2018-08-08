@@ -39,7 +39,7 @@ class AuthMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        if (1) {
+        if (false) {
             return response()->json(['rand' => rand()]);
         }
         var_dump($request->getUri()->getPath());
