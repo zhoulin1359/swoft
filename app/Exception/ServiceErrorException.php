@@ -14,5 +14,6 @@ use Swoft\Http\Server\Exception\HttpException;
 class ServiceErrorException extends HttpException
 {
 
+    public $message = '啊哦！服务器抽风了！请重试...';
     public $code = 500;
 }
