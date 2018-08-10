@@ -12,11 +12,14 @@ use App\Component\FileHelper;
 use App\Component\JsonResponse;
 use app\Component\Security;
 use App\Exception\ServiceErrorException;
+use App\Models\Dao\UserBaseDao;
 use App\Models\Wechat\AccessToken;
 use App\Models\Wechat\Jssdk;
 use App\Models\Wechat\UploadImg;
+use App\Models\Wechat\UserInfo;
 use Swoft\Bean\Annotation\Strings;
 use Swoft\Bean\Annotation\ValidatorFrom;
+use Swoft\Http\Message\Cookie\Cookie;
 use Swoft\Http\Message\Upload\UploadedFile;
 use Swoft\Http\Server\Bean\Annotation\Controller;
 use Swoft\Http\Server\Bean\Annotation\RequestMapping;
@@ -53,6 +56,43 @@ class WechatController extends BaseController
 
 
     /**
+     * @RequestMapping(route="get_code")
+     */
+    public function getCode()
+    {
+
+        //$port = request()->getUri()->getPort();
+        $redirectUrl = urlencode(request()->getUri()->getScheme() . '://' . request()->getHeaderLine('host') . '/wechat/get_openid');
+        $userInfo = new UserInfo(config('jeemu.wechat.appid'), config('jeemu.wechat.secret'));
+        $url = $userInfo->getBaseUrl($redirectUrl, 'snsapi_base');
+        //return response();
+        return JsonResponse::data($url, JsonResponse::SUCCESS_MSG, JsonResponse::SUCCESS);
+    }
+
+
+    /**
+     * @RequestMapping(route="get_openid")
+     * @Strings(from=ValidatorFrom::GET,name="code")
+     */
+    public function getOpenid()
+    {
+        $code = request()->query('code');
+        $userInfo = new UserInfo(config('jeemu.wechat.appid'), config('jeemu.wechat.secret'));
+        $accessToken = $userInfo->getAccessToken($code);
+        if (empty($accessToken)) {
+            throw new ServiceErrorException();
+        }
+        $openid = $accessToken['openid'];
+        $uid = UserBaseDao::saveData($openid);
+        session()->put('uid', $uid);
+        session()->put('openid', $openid);
+        $cookieValue = (new Security())->encryptByPassword(serialize(['uid' => $uid, 'openid' => $openid]), config('jeemu.cookie.salt'));
+        $response = JsonResponse::cookie(config('jeemu.cookie.remember_name'), base64_encode($cookieValue), time() + 86400 * 7);
+        return JsonResponse::data($uid, JsonResponse::SUCCESS_MSG, JsonResponse::SUCCESS, $response);
+    }
+
+
+    /**
      * @RequestMapping(route="upload_img")
      * @return array
      */
@@ -69,20 +109,20 @@ class WechatController extends BaseController
         if (config('jeemu.upload.image_max_size') < $file->getSize()) {
             return JsonResponse::data('', '文件太大了', JsonResponse::CLIENT_ERROR);
         }
-        $dir = config('jeemu.upload.dir').date('Y/m/d/H/');
-        if (!FileHelper::createDir($dir)){
+        $dir = config('jeemu.upload.dir') . date('Y/m/d/H/');
+        if (!FileHelper::createDir($dir)) {
             throw new ServiceErrorException();
         }
         $ext = $file->getClientFilename();
-        $ext = explode('.',$ext)[1];
-        $fileName = (new Security)->generateRandomString(16).'.'.$ext;
-        $file->moveTo($dir.$fileName);
+        $ext = explode('.', $ext)[1];
+        $fileName = (new Security)->generateRandomString(16) . '.' . $ext;
+        $file->moveTo($dir . $fileName);
         $accessToken = (new AccessToken(config('jeemu.wechat.appid'), config('jeemu.wechat.secret')))->get();
         if (empty($accessToken)) {
             throw new ServiceErrorException();
         }
 
-        $result = (new UploadImg(config('jeemu.wechat.appid'), config('jeemu.wechat.secret')))->send($dir.$fileName, $accessToken);
+        $result = (new UploadImg(config('jeemu.wechat.appid'), config('jeemu.wechat.secret')))->send($dir . $fileName, $accessToken);
         return JsonResponse::data($result);
     }
 }
