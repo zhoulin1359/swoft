@@ -13,14 +13,21 @@ use Swoft\Bean\Annotation\Inject;
 use Swoft\Bean\Annotation\Scope;
 use Swoft\Redis\Redis;
 
+
 /**
  * @Bean(scope=Scope::SINGLETON)
  * Class SessionDao
  * @package App\Models\Dao
+ * @method mixed getOpenid() 12
+ * @method mixed setOpenid(string $openid) 232
  */
-class SessionDao
+class SessionDao extends DaoBase
 {
+    /** @ */
+
     private $uid = 0;
+
+    private $openid;
 
     private $nick;
 
@@ -28,19 +35,6 @@ class SessionDao
 
     private $head_img;
 
-
-    public function __construct()
-    {
-        var_dump($this);
-
-    }
-
-
-    public function __destruct()
-    {
-        var_dump('destruct..');
-        // TODO: Implement __destruct() method.
-    }
 
     public function setUid(int $uid)
     {

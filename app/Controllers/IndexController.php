@@ -11,7 +11,9 @@
 namespace App\Controllers;
 
 use App\Models\Buffer\Entity\SessionObj;
+use App\Models\Dao\SessionDao;
 use Swoft\App;
+use Swoft\Helper\StringHelper;
 use Swoft\Http\Server\Bean\Annotation\Controller;
 use Swoft\Http\Server\Bean\Annotation\RequestMapping;
 use Swoft\Log\Log;
@@ -117,7 +119,7 @@ class IndexController
             public function toArray(): array
             {
                 return [
-                    'name'  => 'Swoft',
+                    'name' => 'Swoft',
                     'notes' => ['New Generation of PHP Framework', 'High Performance, Coroutine and Full Stack'],
                     'links' => [
                         [
@@ -154,7 +156,7 @@ class IndexController
     public function absolutePath(): Response
     {
         $data = [
-            'name'  => 'Swoft',
+            'name' => 'Swoft',
             'notes' => ['New Generation of PHP Framework', 'High Performance, Coroutine and Full Stack'],
             'links' => [
                 [
@@ -198,9 +200,8 @@ class IndexController
      */
     public function testLog()
     {
-        $obj = new SessionObj();
-        $obj->setUid(123);
-        return $obj->serializeToJsonString();
+        $test = new SessionDao();
+        return $test->getOpenid();
     }
 
     /**

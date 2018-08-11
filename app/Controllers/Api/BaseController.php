@@ -33,12 +33,6 @@ class BaseController
      */
     protected $sessionDao;
 
-    public function __construct()
-    {
-        //var_dump(123);
-        var_dump(posix_getpid());
-    }
-
     /**
      * @RequestMapping(route="test")
      */
