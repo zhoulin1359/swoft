@@ -10,6 +10,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Buffer\Entity\SessionObj;
 use Swoft\App;
 use Swoft\Http\Server\Bean\Annotation\Controller;
 use Swoft\Http\Server\Bean\Annotation\RequestMapping;
@@ -192,13 +193,14 @@ class IndexController
         return $name;
     }
 
+    /**
+     * @RequestMapping(route="/test")
+     */
     public function testLog()
     {
-        App::trace('this is app trace');
-        Log::trace('this is log trace');
-        App::error('this is log error');
-        Log::trace('this is log error');
-        return ['log'];
+        $obj = new SessionObj();
+        $obj->setUid(123);
+        return $obj->serializeToJsonString();
     }
 
     /**

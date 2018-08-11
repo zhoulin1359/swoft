@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+option php_metadata_namespace = "App/Models/Buffer/Entity/GPBMetadata";
+package app.models.buffer.entity;
+
+message SessionObj {
+    int64 uid = 1; //用户id
+}

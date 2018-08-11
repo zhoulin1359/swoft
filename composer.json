@@ -31,7 +31,8 @@
         "swoft/process": "^1.0",
         "swoft/memory": "^1.0",
         "swoft/service-governance": "^1.0",
-        "swoft/auth": "^1.0"
+        "swoft/auth": "^1.0",
+        "google/protobuf": "v3.6.0.1"
     },
     "require-dev": {
         "swoft/swoole-ide-helper": "dev-master",
