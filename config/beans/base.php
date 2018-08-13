@@ -10,7 +10,7 @@
 return [
     'serverDispatcher' => [
         'middlewares' => [
-            \App\Middlewares\XhguiMiddleware::class,
+            //\App\Middlewares\XhguiMiddleware::class,
             //\Swoft\View\Middleware\ViewMiddleware::class,
             // \Swoft\Devtool\Middleware\DevToolMiddleware::class,
             //\Swoft\Session\Middleware\SessionMiddleware::class,
