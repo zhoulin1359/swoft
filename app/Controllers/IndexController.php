@@ -10,7 +10,10 @@
 
 namespace App\Controllers;
 
+use App\Models\Buffer\Entity\SessionObj;
+use App\Models\Dao\SessionDao;
 use Swoft\App;
+use Swoft\Helper\StringHelper;
 use Swoft\Http\Server\Bean\Annotation\Controller;
 use Swoft\Http\Server\Bean\Annotation\RequestMapping;
 use Swoft\Log\Log;
@@ -266,13 +269,13 @@ class IndexController
         return $name;
     }
 
+    /**
+     * @RequestMapping(route="/test")
+     */
     public function testLog()
     {
-        App::trace('this is app trace');
-        Log::trace('this is log trace');
-        App::error('this is log error');
-        Log::trace('this is log error');
-        return ['log'];
+        $test = new SessionDao();
+        return $test->getOpenid();
     }
 
     /**

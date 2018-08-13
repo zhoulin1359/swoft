@@ -10,6 +10,7 @@
 
 namespace App\Exception;
 
+use App\Component\JsonResponse;
 use Swoft\App;
 use Swoft\Bean\Annotation\ExceptionHandler;
 use Swoft\Bean\Annotation\Handler;
@@ -82,7 +83,7 @@ class SwoftExceptionHandler
     {
         $exception = $throwable->getMessage();
 
-        return $response->json(['message' => $exception]);
+        return $response->json(['msg' => $exception,'status'=>JsonResponse::CLIENT_ERROR]);
     }
 
     /**
@@ -97,7 +98,7 @@ class SwoftExceptionHandler
     {
         $exception = $throwable->getMessage();
 
-        return $response->json(['message' => $exception]);
+        return $response->json(['msg' => $exception,'status'=>JsonResponse::CLIENT_ERROR]);
     }
 
     /**

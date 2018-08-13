@@ -78,6 +78,7 @@ class Wechat
                 'info' => '',
                 'data' => $response->getBody()];
         }
+        $this->setError($url,$response->getBody());
         return [
             'status' => 0,
             'info' => '请求出现问题',

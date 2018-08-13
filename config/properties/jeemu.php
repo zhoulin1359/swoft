@@ -17,5 +17,9 @@ return [
         ],
         'image_max_size' => 1024 * 1024 * 2,
         'dir' => __DIR__ . DS . '..' . DS . '..' . DS . 'public' . DS . 'upload_file' . DS
+    ],
+    'cookie'=>[
+        'remember_name'=>'JDFE',
+        'salt'=>'gsSQOKkJ1w2zPYpd',
     ]
 ];

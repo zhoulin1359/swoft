@@ -54,9 +54,9 @@ class AuthMiddleware implements MiddlewareInterface
         //\Swoft::trigger('finish', null, 1, 2222,232); 事件
         //\Swoft::trigger('runtime', null, microtime(true));
         //var_dump(Test::test());
-        session()->put(['uid'=>rand(1,10)]);
-        $session = App::getBean(SessionDao::class);
-        $session->setUid(session()->get('uid',0));
+       // session()->put(['uid'=>rand(1,10)]);
+      //  $session = App::getBean(SessionDao::class);
+        //$session->setUid(session()->get('uid',0));
         $response = $handler->handle($request);
         return $response;
     }
