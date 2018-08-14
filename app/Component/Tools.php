@@ -1,8 +1,7 @@
 <?php
 
-namespace Yaff\Core\Components;
+namespace App\Component;
 
-use Yaff\Core\App;
 
 /**
  * Created by PhpStorm.

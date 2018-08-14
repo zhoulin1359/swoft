@@ -16,7 +16,8 @@ return [
             //\Swoft\Session\Middleware\SessionMiddleware::class,
             //\App\Middlewares\AuthMiddleware::class
             \App\Middlewares\SessionMiddleware::class,
-            \App\Middlewares\UidMiddleware::class
+            \App\Middlewares\UidMiddleware::class,
+             \App\Middlewares\AppidMiddleware::class
         ]
     ],
     'httpRouter' => [
