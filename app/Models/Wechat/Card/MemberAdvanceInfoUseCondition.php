@@ -6,7 +6,7 @@
  * Time: 0:02
  */
 
-namespace App\Models\Wechat;
+namespace App\Models\Wechat\Card;
 
 
 class MemberAdvanceInfoUseCondition

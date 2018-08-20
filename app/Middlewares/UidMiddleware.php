@@ -11,7 +11,7 @@ namespace App\Middlewares;
 
 use app\Component\Security;
 use App\Models\Dao\SessionDao;
-use App\Models\Dao\UserBaseDao;
+use App\Models\Data\UserBaseDao;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -43,9 +43,9 @@ class UidMiddleware implements \Swoft\Http\Message\Middleware\MiddlewareInterfac
                 }
             }
         }
-
         $dao = App::getBean(SessionDao::class);
         $dao->setUid($uid);
+        $dao->setOpenid(session()->get('openid'));
         $response = $handler->handle($request);
         return $response;
     }

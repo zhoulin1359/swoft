@@ -19,6 +19,10 @@ class SessionObj extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>int64 uid = 1;</code>
      */
     private $uid = 0;
+    /**
+     * Generated from protobuf field <code>string nick = 2;</code>
+     */
+    private $nick = '';
 
     /**
      * Constructor.
@@ -28,6 +32,7 @@ class SessionObj extends \Google\Protobuf\Internal\Message
      *
      *     @type int|string $uid
      *          用户id
+     *     @type string $nick
      * }
      */
     public function __construct($data = NULL) {
@@ -57,6 +62,28 @@ class SessionObj extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkInt64($var);
         $this->uid = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>string nick = 2;</code>
+     * @return string
+     */
+    public function getNick()
+    {
+        return $this->nick;
+    }
+
+    /**
+     * Generated from protobuf field <code>string nick = 2;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setNick($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->nick = $var;
 
         return $this;
     }

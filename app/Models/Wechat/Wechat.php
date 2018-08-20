@@ -30,7 +30,7 @@ class Wechat
     protected $cacheTtl = 6000;
 
 
-    public function __construct(string $appid, string $appSecret, array $config = [])
+    public function __construct(string $appid, string $appSecret)
     {
         $this->appid = $appid;
         $this->appSecret = $appSecret;

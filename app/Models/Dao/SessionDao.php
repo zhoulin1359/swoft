@@ -18,8 +18,9 @@ use Swoft\Redis\Redis;
  * @Bean(scope=Scope::SINGLETON)
  * Class SessionDao
  * @package App\Models\Dao
- * @method mixed getOpenid() 12
- * @method mixed setOpenid(string $openid) 232
+ * @method string getOpenid()
+ * @method null setOpenid(string $openid)
+ *
  */
 class SessionDao extends DaoBase
 {
@@ -27,13 +28,8 @@ class SessionDao extends DaoBase
 
     private $uid = 0;
 
-    private $openid;
+    public $openid;
 
-    private $nick;
-
-    private $group_id;
-
-    private $head_img;
 
 
     public function setUid(int $uid)
@@ -45,6 +41,5 @@ class SessionDao extends DaoBase
     {
         return $this->uid;
     }
-
 
 }

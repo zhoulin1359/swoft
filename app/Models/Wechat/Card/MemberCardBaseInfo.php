@@ -6,7 +6,7 @@
  * Time: 23:30
  */
 
-namespace App\Models\Wechat;
+namespace App\Models\Wechat\Card;
 
 
 class MemberCardBaseInfo
@@ -21,13 +21,13 @@ class MemberCardBaseInfo
      * @var string(16)
      * Code展示类型， "CODE_TYPE_TEXT" 文本 "CODE_TYPE_BARCODE" 一维码 "CODE_TYPE_QRCODE" 二维码 "CODE_TYPE_ONLY_QRCODE" 仅显示二维码 "CODE_TYPE_ONLY_BARCODE" 仅显示一维码 "CODE_TYPE_NONE" 不显示任何码型
      */
-    public $code_type;
+    public $code_type = 'CODE_TYPE_QRCODE';
 
     /** @var string(12) 卡券名，字数上限为9个汉字 (建议涵盖卡券属性、服务及金额)。 */
     public $title;
 
     /** @var string 券颜色。按色彩规范标注填写Color010-Color100 */
-    public $color;
+    public $color = 'Color010';
 
     /**
      * @var string(16)

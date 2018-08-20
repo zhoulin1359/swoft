@@ -5,4 +5,5 @@ package app.models.buffer.entity;
 
 message SessionObj {
     int64 uid = 1; //用户id
+    string nick = 2;
 }

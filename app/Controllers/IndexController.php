@@ -10,6 +10,7 @@
 
 namespace App\Controllers;
 
+use App\Controllers\Api\BaseController;
 use App\Models\Buffer\Entity\SessionObj;
 use App\Models\Dao\SessionDao;
 use Swoft\App;
@@ -26,7 +27,7 @@ use Swoft\Http\Message\Server\Response;
  * Class IndexController
  * @Controller()
  */
-class IndexController
+class IndexController extends BaseController
 {
 
     /**
@@ -274,8 +275,11 @@ class IndexController
      */
     public function testLog()
     {
-        $test = new SessionDao();
-        return $test->getOpenid();
+        $test = new SessionObj();
+        $test->setNick(StringHelper::random(100000));
+        $this->redis->set('test',$test->serializeToJsonString());
+        $this->redis->set('test_bin',$test->serializeToString());
+        return [$test->serializeToJsonString()];
     }
 
     /**
