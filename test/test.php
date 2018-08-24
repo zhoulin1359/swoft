@@ -1,14 +1,15 @@
 <?php
-include_once './../vendor/autoload.php';
-var_dump(\Swoft\Helper\StringHelper::random(8));
 
-$card = new \App\Models\Wechat\Card\MemberCard();
-$baseInfo = new \App\Models\Wechat\Card\MemberCardBaseInfo();
+$str = 'AACCDDFG';
 
-$condition = new \App\Models\Wechat\Card\MemberAdvanceInfoUseCondition();
-$abstract = new \App\Models\Wechat\Card\MemberAdvanceInfoAbstract();
-$textImageList = new \App\Models\Wechat\Card\MemberAdvanceInfoTextImageList();
-$timeInfo = new \App\Models\Wechat\Card\MemberAdvanceInfoTimeInfo();
-$advance = new \App\Models\Wechat\Card\MemberAdvanceInfo($condition,$abstract,$textImageList,$timeInfo);
-\App\Models\Wechat\CreateMemberCard::createCard($card,$baseInfo,$advance);
+var_dump($hex  = (int)bin2hex($str) + 1);
+var_dump($hex);
+var_dump(hex2bin($hex));
+function test($str = 'AACCDDFG'){
+    return hex2bin(\bin2hex($str) + 1);
+}
 
+
+for($i = 0;$i<100;$i++){
+    var_dump($str = test($str));
+}

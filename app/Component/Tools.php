@@ -1,16 +1,19 @@
 <?php
-
-namespace App\Component;
-
-
+namespace app\Component;
 /**
  * Created by PhpStorm.
- * User: henryzhu
+ * User: jeemu
  * Date: 18-6-28
  * Time: 下午6:57
  */
 class Tools
 {
+
+    public static function createCmdCode(string $code = 'ACAAdEEf'):string
+    {
+        return hex2bin(bin2hex($code) + 1);
+    }
+
     /**
      * identifier最好是以md5签名的
      * @param $identifier
@@ -61,7 +64,7 @@ SCRIPT;
 
         $refreshExpiration = $refreshExpiration ? 1 : 0;
 
-        $ret = App::getRedis()->eval($script, ['id', 'e', 's', 'r', $identifier, $expire, $size, $refreshExpiration], 4);
+        $ret = \Swoft\App::getBean(\Swoft\Redis\Redis::class)->eval($script, ['id', 'e', 's', 'r', $identifier, $expire, $size, $refreshExpiration], 4);
 
         if ($ret === 1) {
             return true;
